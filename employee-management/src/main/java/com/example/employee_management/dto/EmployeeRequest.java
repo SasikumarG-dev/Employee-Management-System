@@ -1,33 +1,31 @@
-package com.example.employee_management.entity;
+package com.example.employee_management.dto;
 
+import com.example.employee_management.validation.ValidAge;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
-
-@Entity
 @Data
 @AllArgsConstructor
 @Builder
 @NoArgsConstructor
-public class Employee {
+public class EmployeeRequest {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer employeeId;
     private String employeeFirstName;
     private String employeeLastName;
-//    @JsonFormat(pattern = "dd-MM-yyyy")
+    @NotNull(message = "Enter Date of Birth")
+    @ValidAge
     private LocalDate dateOfBirth;
-//    @JsonFormat(pattern = "dd-MM-yyyy")
     private LocalDate dateOfJoin;
     private String address;
     private Integer departmentId;
-
 }

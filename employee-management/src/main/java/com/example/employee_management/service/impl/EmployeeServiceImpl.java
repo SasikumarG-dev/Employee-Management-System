@@ -1,8 +1,10 @@
 package com.example.employee_management.service.impl;
 
+import com.example.employee_management.dto.EmployeeRequest;
 import com.example.employee_management.entity.Employee;
 import com.example.employee_management.repository.EmployeeRepository;
 import com.example.employee_management.service.EmployeeService;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,9 +15,13 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Autowired
     private EmployeeRepository employeeRepository;
+    @Autowired
+    private ModelMapper modelMapper;
 
     @Override
-    public Employee saveEmployee(Employee employee) {
+    public Employee saveEmployee(EmployeeRequest employeeRequest) {
+        Employee employee = modelMapper.map(employeeRequest, Employee.class);
+
         return employeeRepository.save(employee);
     }
 
